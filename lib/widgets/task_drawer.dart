@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tasks_app/blocs/blocs.dart';
+import 'package:tasks_app/models/task.dart';
 import '../screens/tasks_screen.dart';
 import '../screens/archive_screen.dart';
 
@@ -27,7 +29,10 @@ class TaskDrawer extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.folder_special_rounded),
               title: const Text('My Tasks'),
-              trailing: const Text('0'),
+              trailing: BlocSelector<TaskBloc, TaskState, List<Task>>(
+                selector: (state) => state.tasks,
+                builder: (ctx, tasks) => Text(tasks.length.toString()),
+              ),
               onTap: () => Navigator.pushReplacementNamed(
                 context,
                 TasksScreen.id,
