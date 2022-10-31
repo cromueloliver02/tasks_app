@@ -14,7 +14,7 @@ class Task extends Equatable {
   });
 
   @override
-  List<Object?> get props => [title, isDone, isDeleted];
+  List<Object?> get props => [id, title, isDone, isDeleted];
 
   Task copyWith({
     String? id,
