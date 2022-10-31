@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 import '../blocs/blocs.dart';
-import '../models/task.dart';
 import 'screens/tasks_screen.dart';
 
 class TasksApp extends StatelessWidget {
@@ -10,15 +8,7 @@ class TasksApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (ctx) => TaskBloc()
-        ..add(
-          AddTask(
-            task: Task(
-              id: const Uuid().v1(),
-              title: 'Task 1',
-            ),
-          ),
-        ),
+      create: (ctx) => TaskBloc(),
       child: MaterialApp(
         title: 'Tasks App',
         theme: ThemeData(

@@ -1,12 +1,11 @@
-// ignore: depend_on_referenced_packages
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import '../blocs.dart';
 import '../../models/task.dart';
 
 part 'task_event.dart';
 part 'task_state.dart';
 
-class TaskBloc extends Bloc<TaskEvent, TaskState> {
+class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
   TaskBloc() : super(const TaskState()) {
     on<AddTask>(_addTask);
     on<UpdateTask>(_updateTask);
@@ -38,5 +37,15 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       ..removeWhere((d) => d.id == task.id);
 
     emit(TaskState(tasks: tasks));
+  }
+
+  @override
+  TaskState? fromJson(Map<String, dynamic> json) {
+    return TaskState.fromMap(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(TaskState state) {
+    return state.toMap();
   }
 }

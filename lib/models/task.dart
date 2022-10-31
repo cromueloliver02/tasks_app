@@ -13,6 +13,9 @@ class Task extends Equatable {
     this.isDeleted = false,
   });
 
+  @override
+  List<Object?> get props => [title, isDone, isDeleted];
+
   Task copyWith({
     String? id,
     String? title,
@@ -29,6 +32,7 @@ class Task extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'title': title,
       'isDone': isDone,
       'isDeleted': isDeleted,
@@ -43,7 +47,4 @@ class Task extends Equatable {
       isDeleted: map['isDeleted'] as bool,
     );
   }
-
-  @override
-  List<Object?> get props => [title, isDone, isDeleted];
 }
