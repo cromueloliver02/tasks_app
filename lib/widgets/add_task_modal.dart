@@ -21,9 +21,6 @@ class _AddTaskModalState extends State<AddTaskModal> {
       title: _titleController.value.text,
     );
 
-    print(task.id);
-    print(task.title);
-
     context.read<TaskBloc>().add(AddTask(task: task));
 
     _closeAddTaskModal();
