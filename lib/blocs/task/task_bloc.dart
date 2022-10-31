@@ -9,7 +9,7 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
   TaskBloc() : super(const TaskState()) {
     on<AddTask>(_addTask);
     on<UpdateTask>(_updateTask);
-    on<DeleteTask>(_deleteTask);
+    on<ArchiveTask>(_archiveTask);
   }
 
   void _addTask(AddTask event, Emitter<TaskState> emit) {
@@ -30,7 +30,7 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     emit(TaskState(tasks: tasks));
   }
 
-  void _deleteTask(DeleteTask event, Emitter<TaskState> emit) {
+  void _archiveTask(ArchiveTask event, Emitter<TaskState> emit) {
     final state = this.state;
     final task = event.task;
     final tasks = List<Task>.from(state.tasks)

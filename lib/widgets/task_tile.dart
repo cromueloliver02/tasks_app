@@ -33,7 +33,7 @@ class TaskTile extends StatelessWidget {
             color: Colors.red,
             iconSize: 30,
             onPressed: () =>
-                context.read<TaskBloc>().add(DeleteTask(task: task)),
+                context.read<TaskBloc>().add(ArchiveTask(task: task)),
           ),
         ],
       ),

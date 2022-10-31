@@ -25,10 +25,10 @@ class UpdateTask extends TaskEvent {
   List<Object> get props => [task];
 }
 
-class DeleteTask extends TaskEvent {
+class ArchiveTask extends TaskEvent {
   final Task task;
 
-  const DeleteTask({required this.task});
+  const ArchiveTask({required this.task});
 
   @override
   List<Object> get props => [task];
