@@ -13,9 +13,7 @@ void main() async {
 
   HydratedBlocOverrides.runZoned(
     () => runApp(
-      TasksApp(
-        appRouter: AppRouter(),
-      ),
+      TasksApp(appRouter: AppRouter()),
     ),
     storage: storage,
     blocObserver: TaskBlocObserver(),

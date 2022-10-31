@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tasks_app/blocs/blocs.dart';
-import 'package:tasks_app/models/task.dart';
+import '../blocs/blocs.dart';
+import '../models/task.dart';
 import '../screens/tasks_screen.dart';
 import '../screens/archive_screen.dart';
 
@@ -51,6 +51,15 @@ class TaskDrawer extends StatelessWidget {
               onTap: () => Navigator.pushReplacementNamed(
                 context,
                 ArchiveScreen.id,
+              ),
+            ),
+            const SizedBox(height: 30),
+            BlocSelector<BrightnessBloc, BrightnessState, bool>(
+              selector: (state) => state.isDark,
+              builder: (ctx, isDark) => Switch(
+                value: isDark,
+                onChanged: (value) =>
+                    ctx.read<BrightnessBloc>().add(SwitchBrightnessEvent()),
               ),
             ),
           ],
