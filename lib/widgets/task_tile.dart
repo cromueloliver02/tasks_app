@@ -10,6 +10,16 @@ class TaskTile extends StatelessWidget {
 
   final Task task;
 
+  void _onArchiveOrDelete(BuildContext ctx) {
+    final taskBloc = ctx.read<TaskBloc>();
+
+    if (!task.isArchived) {
+      taskBloc.add(ArchiveTask(task: task));
+    } else {
+      taskBloc.add(DeleteTask(task: task));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -32,8 +42,7 @@ class TaskTile extends StatelessWidget {
             icon: const Icon(Icons.delete),
             color: Colors.red,
             iconSize: 30,
-            onPressed: () =>
-                context.read<TaskBloc>().add(ArchiveTask(task: task)),
+            onPressed: () => _onArchiveOrDelete(context),
           ),
         ],
       ),
