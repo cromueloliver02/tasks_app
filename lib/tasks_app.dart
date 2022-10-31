@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
+import '../blocs/blocs.dart';
+import '../models/task.dart';
+import 'screens/tasks_screen.dart';
 
 class TasksApp extends StatelessWidget {
   const TasksApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Tasks App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return BlocProvider(
+      create: (ctx) => TaskBloc()
+        ..add(
+          const AddTask(task: Task(title: 'Task 1')),
+        ),
+      child: MaterialApp(
+        title: 'Tasks App',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const TasksScreen(),
       ),
-      home: const HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('HOME PAGE')),
     );
   }
 }
