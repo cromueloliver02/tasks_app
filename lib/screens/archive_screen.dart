@@ -28,16 +28,18 @@ class ArchiveScreen extends StatelessWidget {
           Center(
             child: Chip(
               label: BlocSelector<TaskBloc, TaskState, List<Task>>(
-                selector: (state) => state.tasks,
-                builder: (context, tasks) => Text('Tasks: ${tasks.length}'),
+                selector: (state) => state.archivedTasks,
+                builder: (context, archivedTasks) {
+                  return Text('Archived Tasks: ${archivedTasks.length}');
+                },
               ),
             ),
           ),
           Expanded(
             child: BlocSelector<TaskBloc, TaskState, List<Task>>(
-              selector: (state) => state.tasks,
-              builder: (context, tasks) {
-                return TaskList(tasks: tasks);
+              selector: (state) => state.archivedTasks,
+              builder: (context, archivedTasks) {
+                return TaskList(tasks: archivedTasks);
               },
             ),
           ),

@@ -4,29 +4,29 @@ class Task extends Equatable {
   final String id;
   final String title;
   final bool isDone;
-  final bool isDeleted;
+  final bool isArchived;
 
   const Task({
     required this.id,
     required this.title,
     this.isDone = false,
-    this.isDeleted = false,
+    this.isArchived = false,
   });
 
   @override
-  List<Object?> get props => [id, title, isDone, isDeleted];
+  List<Object?> get props => [id, title, isDone, isArchived];
 
   Task copyWith({
     String? id,
     String? title,
     bool? isDone,
-    bool? isDeleted,
+    bool? isArchived,
   }) {
     return Task(
       id: id ?? this.id,
       title: title ?? this.title,
       isDone: isDone ?? this.isDone,
-      isDeleted: isDeleted ?? this.isDeleted,
+      isArchived: isArchived ?? this.isArchived,
     );
   }
 
@@ -35,7 +35,7 @@ class Task extends Equatable {
       'id': id,
       'title': title,
       'isDone': isDone,
-      'isDeleted': isDeleted,
+      'isArchived': isArchived,
     };
   }
 
@@ -44,7 +44,7 @@ class Task extends Equatable {
       id: map['id'] as String,
       title: map['title'] as String,
       isDone: map['isDone'] as bool,
-      isDeleted: map['isDeleted'] as bool,
+      isArchived: map['isArchived'] as bool,
     );
   }
 }

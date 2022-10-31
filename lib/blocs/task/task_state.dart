@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'task_bloc.dart';
 
 class TaskState extends Equatable {
@@ -11,6 +12,16 @@ class TaskState extends Equatable {
 
   @override
   List<Object> get props => [tasks, archivedTasks];
+
+  TaskState copyWith({
+    List<Task>? tasks,
+    List<Task>? archivedTasks,
+  }) {
+    return TaskState(
+      tasks: tasks ?? this.tasks,
+      archivedTasks: archivedTasks ?? this.archivedTasks,
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

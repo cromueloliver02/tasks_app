@@ -31,7 +31,7 @@ class TaskDrawer extends StatelessWidget {
               title: const Text('My Tasks'),
               trailing: BlocSelector<TaskBloc, TaskState, List<Task>>(
                 selector: (state) => state.tasks,
-                builder: (ctx, tasks) => Text(tasks.length.toString()),
+                builder: (ctx, tasks) => Text('${tasks.length}'),
               ),
               onTap: () => Navigator.pushReplacementNamed(
                 context,
@@ -42,7 +42,12 @@ class TaskDrawer extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.delete),
               title: const Text('Archive'),
-              trailing: const Text('0'),
+              trailing: BlocSelector<TaskBloc, TaskState, List<Task>>(
+                selector: (state) => state.archivedTasks,
+                builder: (context, archivedTasks) {
+                  return Text('${archivedTasks.length}');
+                },
+              ),
               onTap: () => Navigator.pushReplacementNamed(
                 context,
                 ArchiveScreen.id,
