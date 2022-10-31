@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'tasks_app.dart';
 import 'blocs/blocs.dart';
 
@@ -13,12 +14,14 @@ class AppBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    if (bloc is Cubit) debugPrint(change.toString());
+    if (kDebugMode) {
+      if (bloc is Cubit) print(change);
+    }
   }
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    debugPrint(transition.toString());
+    if (kDebugMode) print(transition);
   }
 }

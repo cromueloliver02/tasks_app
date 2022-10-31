@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 import '../blocs/blocs.dart';
 import '../models/task.dart';
 import 'screens/tasks_screen.dart';
@@ -11,7 +12,12 @@ class TasksApp extends StatelessWidget {
     return BlocProvider(
       create: (ctx) => TaskBloc()
         ..add(
-          const AddTask(task: Task(title: 'Task 1')),
+          AddTask(
+            task: Task(
+              id: const Uuid().v1(),
+              title: 'Task 1',
+            ),
+          ),
         ),
       child: MaterialApp(
         title: 'Tasks App',

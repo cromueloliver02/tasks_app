@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tasks_app/models/task.dart';
+import 'package:uuid/uuid.dart';
 import '../blocs/blocs.dart';
+import '../models/task.dart';
 
 class AddTaskModal extends StatefulWidget {
   const AddTaskModal({super.key});
@@ -15,7 +16,10 @@ class _AddTaskModalState extends State<AddTaskModal> {
   void _onAddTask() {
     if (_titleController.value.text.isEmpty) return;
 
-    final task = Task(title: _titleController.value.text);
+    final task = Task(
+      id: const Uuid().v1(),
+      title: _titleController.value.text,
+    );
 
     context.read<TaskBloc>().add(AddTask(task: task));
 
