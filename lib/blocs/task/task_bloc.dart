@@ -23,7 +23,6 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   void _updateTask(UpdateTask event, Emitter<TaskState> emit) {
     final state = this.state;
     final task = event.task;
-
     final tasks = List<Task>.from(state.tasks)
         .map((Task d) =>
             d.id == task.id ? task.copyWith(isDone: !task.isDone) : d)
@@ -32,5 +31,12 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     emit(TaskState(tasks: tasks));
   }
 
-  void _deleteTask(DeleteTask event, Emitter<TaskState> emit) {}
+  void _deleteTask(DeleteTask event, Emitter<TaskState> emit) {
+    final state = this.state;
+    final task = event.task;
+    final tasks = List<Task>.from(state.tasks)
+      ..removeWhere((d) => d.id == task.id);
+
+    emit(TaskState(tasks: tasks));
+  }
 }
