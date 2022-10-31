@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'app_router.dart';
 import '../blocs/blocs.dart';
 import 'screens/tasks_screen.dart';
 
 class TasksApp extends StatelessWidget {
-  const TasksApp({super.key});
+  const TasksApp({
+    super.key,
+    required this.appRouter,
+  });
+
+  final AppRouter appRouter;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +20,8 @@ class TasksApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const TasksScreen(),
+        initialRoute: TasksScreen.id,
+        routes: appRouter.routes,
       ),
     );
   }

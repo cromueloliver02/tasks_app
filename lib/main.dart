@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'tasks_app.dart';
+import 'app_router.dart';
 import 'blocs/blocs.dart';
 
 void main() async {
@@ -11,7 +12,11 @@ void main() async {
   );
 
   HydratedBlocOverrides.runZoned(
-    () => runApp(const TasksApp()),
+    () => runApp(
+      TasksApp(
+        appRouter: AppRouter(),
+      ),
+    ),
     storage: storage,
     blocObserver: TaskBlocObserver(),
   );

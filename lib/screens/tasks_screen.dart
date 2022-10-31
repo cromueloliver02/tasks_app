@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:tasks_app/models/task.dart';
 import '../blocs/blocs.dart';
+import '../models/task.dart';
 import '../widgets/task_list.dart';
 import '../widgets/add_task_modal.dart';
+import '../widgets/task_drawer.dart';
 
 class TasksScreen extends StatelessWidget {
+  static const id = '/tasks';
+
   const TasksScreen({Key? key}) : super(key: key);
 
   void _showAddTask(BuildContext ctx) {
@@ -19,7 +22,7 @@ class TasksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tasks App'),
+        title: const Text('My Tasks'),
         actions: [
           IconButton(
             onPressed: () => _showAddTask(context),
@@ -27,6 +30,7 @@ class TasksScreen extends StatelessWidget {
           )
         ],
       ),
+      drawer: const TaskDrawer(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
