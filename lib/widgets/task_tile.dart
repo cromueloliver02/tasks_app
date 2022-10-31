@@ -33,11 +33,12 @@ class TaskTile extends StatelessWidget {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Checkbox(
-            value: task.isDone,
-            onChanged: (value) =>
-                context.read<TaskBloc>().add(UpdateTask(task: task)),
-          ),
+          if (!task.isArchived)
+            Checkbox(
+              value: task.isDone,
+              onChanged: (value) =>
+                  context.read<TaskBloc>().add(UpdateTask(task: task)),
+            ),
           IconButton(
             icon: const Icon(Icons.delete),
             color: Colors.red,
