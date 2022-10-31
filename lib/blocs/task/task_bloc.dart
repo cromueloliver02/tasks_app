@@ -28,7 +28,7 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
             d.id == task.id ? task.copyWith(isDone: !task.isDone) : d)
         .toList();
 
-    emit(TaskState(tasks: tasks));
+    emit(state.copyWith(tasks: tasks));
   }
 
   void _archiveTask(ArchiveTask event, Emitter<TaskState> emit) {
