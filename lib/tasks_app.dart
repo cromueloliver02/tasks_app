@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tasks_app/blocs/tab/tab_bloc.dart';
 import 'app_router.dart';
 import 'app_theme.dart';
 import '../blocs/blocs.dart';
-import 'screens/tasks_screen.dart';
+import 'screens/tabs_screen.dart';
 
 class TasksApp extends StatelessWidget {
   const TasksApp({
@@ -18,6 +19,7 @@ class TasksApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (ctx) => TaskBloc()),
         BlocProvider(create: (ctx) => BrightnessBloc()),
+        BlocProvider(create: (ctx) => TabBloc()),
       ],
       child: BlocSelector<BrightnessBloc, BrightnessState, bool>(
         selector: (state) => state.isDark,
@@ -26,7 +28,7 @@ class TasksApp extends StatelessWidget {
           themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
           theme: AppThemes.appThemeData[AppTheme.lightTheme],
           darkTheme: AppThemes.appThemeData[AppTheme.darkTheme],
-          initialRoute: TasksScreen.id,
+          initialRoute: TabsScreen.id,
           routes: appRouter.routes,
         ),
       ),

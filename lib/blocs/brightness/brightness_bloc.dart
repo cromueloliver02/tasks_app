@@ -9,7 +9,8 @@ class BrightnessBloc extends HydratedBloc<BrightnessEvent, BrightnessState> {
     on<SwitchBrightnessEvent>(_switchBrightness);
   }
 
-  void _switchBrightness(event, emit) {
+  void _switchBrightness(
+      SwitchBrightnessEvent event, Emitter<BrightnessState> emit) {
     final state = this.state;
 
     emit(state.copyWith(isDark: !state.isDark));

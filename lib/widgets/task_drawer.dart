@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../blocs/blocs.dart';
 import '../models/task.dart';
-import '../screens/tasks_screen.dart';
+import '../screens/tabs_screen.dart';
 import '../screens/archive_screen.dart';
 
 class TaskDrawer extends StatelessWidget {
@@ -35,7 +35,7 @@ class TaskDrawer extends StatelessWidget {
               ),
               onTap: () => Navigator.pushReplacementNamed(
                 context,
-                TasksScreen.id,
+                TabsScreen.id,
               ),
             ),
             const Divider(),
