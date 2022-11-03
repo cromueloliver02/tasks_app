@@ -19,7 +19,7 @@ class TaskTile extends StatelessWidget {
     return ListTile(
       leading: !task.isArchived
           ? Checkbox(
-              value: task.isDone,
+              value: task.isCompleted,
               onChanged: (value) =>
                   context.read<TaskBloc>().add(CompleteTask(task: task)),
             )
@@ -28,20 +28,18 @@ class TaskTile extends StatelessWidget {
         task.title,
         overflow: TextOverflow.ellipsis,
         style: TextStyle(
-          decoration:
-              task.isDone ? TextDecoration.lineThrough : TextDecoration.none,
+          decoration: task.isCompleted
+              ? TextDecoration.lineThrough
+              : TextDecoration.none,
         ),
       ),
       subtitle: Text(date),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.favorite_border,
-              color: Colors.red,
-            ),
+          Icon(
+            !task.isFavorite ? Icons.favorite_border : Icons.favorite,
+            color: Colors.red,
           ),
           TaskTilePopMenu(task: task),
         ],

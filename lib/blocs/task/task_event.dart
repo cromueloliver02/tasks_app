@@ -25,6 +25,15 @@ class CompleteTask extends TaskEvent {
   List<Object> get props => [task];
 }
 
+class ToggleFavoriteTask extends TaskEvent {
+  final Task task;
+
+  const ToggleFavoriteTask({required this.task});
+
+  @override
+  List<Object> get props => [task];
+}
+
 class ArchiveTask extends TaskEvent {
   final Task task;
 

@@ -5,7 +5,8 @@ class Task extends Equatable {
   final String title;
   final String description;
   final DateTime dateTime;
-  final bool isDone;
+  final bool isCompleted;
+  final bool isFavorite;
   final bool isArchived;
 
   const Task({
@@ -13,19 +14,29 @@ class Task extends Equatable {
     required this.title,
     required this.description,
     required this.dateTime,
-    this.isDone = false,
+    this.isCompleted = false,
+    this.isFavorite = false,
     this.isArchived = false,
   });
 
   @override
-  List<Object?> get props => [id, title, description, isDone, isArchived];
+  List<Object?> get props => [
+        id,
+        title,
+        description,
+        dateTime,
+        isCompleted,
+        isFavorite,
+        isArchived,
+      ];
 
   Task copyWith({
     String? id,
     String? title,
     String? description,
     DateTime? dateTime,
-    bool? isDone,
+    bool? isCompleted,
+    bool? isFavorite,
     bool? isArchived,
   }) {
     return Task(
@@ -33,7 +44,8 @@ class Task extends Equatable {
       title: title ?? this.title,
       description: description ?? this.description,
       dateTime: dateTime ?? this.dateTime,
-      isDone: isDone ?? this.isDone,
+      isCompleted: isCompleted ?? this.isCompleted,
+      isFavorite: isFavorite ?? this.isFavorite,
       isArchived: isArchived ?? this.isArchived,
     );
   }
@@ -44,7 +56,8 @@ class Task extends Equatable {
       'title': title,
       'description': description,
       'dateTime': dateTime.millisecondsSinceEpoch,
-      'isDone': isDone,
+      'isCompleted': isCompleted,
+      'isFavorite': isFavorite,
       'isArchived': isArchived,
     };
   }
@@ -55,7 +68,8 @@ class Task extends Equatable {
       title: map['title'] as String,
       description: map['description'] as String,
       dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime'] as int),
-      isDone: map['isDone'] as bool,
+      isCompleted: map['isCompleted'] as bool,
+      isFavorite: map['isFavorite'] as bool,
       isArchived: map['isArchived'] as bool,
     );
   }

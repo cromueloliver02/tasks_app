@@ -7,8 +7,8 @@ class TaskBlocObserver extends BlocObserver {
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
     if (kDebugMode) {
-      print(bloc);
-      print(event);
+      // print(bloc);
+      // print(event);
     }
   }
 
@@ -16,9 +16,9 @@ class TaskBlocObserver extends BlocObserver {
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
     super.onError(bloc, error, stackTrace);
     if (kDebugMode) {
-      print(bloc);
-      print(error);
-      print(stackTrace);
+      // print(bloc);
+      // print(error);
+      // print(stackTrace);
     }
   }
 
@@ -26,8 +26,8 @@ class TaskBlocObserver extends BlocObserver {
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
     if (kDebugMode) {
-      print(bloc);
-      print(change);
+      // print(bloc);
+      // print(change);
     }
   }
 
@@ -35,8 +35,8 @@ class TaskBlocObserver extends BlocObserver {
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
     if (kDebugMode) {
-      print(bloc);
-      print(transition);
+      // print(bloc);
+      // print(transition);
     }
   }
 }

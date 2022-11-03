@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../blocs/blocs.dart';
+import '../models/task.dart';
+import '../widgets/task_list.dart';
 import '../screens/tabs_screen.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -8,8 +11,25 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('FAVORITES SCREEN'),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Center(
+          child: Chip(
+            label: BlocSelector<TaskBloc, TaskState, List<Task>>(
+              selector: (state) => state.favoriteTasks,
+              builder: (ctx, favoriteTasks) =>
+                  Text('Favorite Tasks: ${favoriteTasks.length}'),
+            ),
+          ),
+        ),
+        Expanded(
+          child: BlocSelector<TaskBloc, TaskState, List<Task>>(
+            selector: (state) => state.favoriteTasks,
+            builder: (ctx, favoriteTasks) => TaskList(tasks: favoriteTasks),
+          ),
+        ),
+      ],
     );
   }
 }

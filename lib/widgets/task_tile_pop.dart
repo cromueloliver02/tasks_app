@@ -34,11 +34,14 @@ class TaskTilePopMenu extends StatelessWidget {
                 ),
               ),
               PopupMenuItem(
-                onTap: () {},
+                onTap: () => context
+                    .read<TaskBloc>()
+                    .add(ToggleFavoriteTask(task: task)),
                 child: TextButton.icon(
                   onPressed: null,
                   icon: const Icon(Icons.bookmark_add),
-                  label: const Text('Add to Bookmark'),
+                  label: Text(
+                      '${task.isFavorite ? 'Remove from' : 'Add to'} Bookmark'),
                 ),
               ),
               PopupMenuItem(

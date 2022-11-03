@@ -9,6 +9,7 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
   TaskBloc() : super(const TaskState()) {
     on<AddTask>(_addTask);
     on<CompleteTask>(_toggleCompleteTask);
+    on<ToggleFavoriteTask>(_toggleFavoriteTask);
     on<ArchiveTask>(_archiveTask);
     on<DeleteTask>(_deleteTask);
   }
@@ -27,17 +28,39 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     final pendingTasks = List<Task>.from(state.pendingTasks);
     final completedTasks = List<Task>.from(state.completedTasks);
 
-    if (!task.isDone) {
+    if (!task.isCompleted) {
       pendingTasks.removeWhere((d) => d.id == task.id);
-      completedTasks.insert(0, task.copyWith(isDone: true));
+      completedTasks.insert(0, task.copyWith(isCompleted: true));
     } else {
-      pendingTasks.insert(0, task.copyWith(isDone: false));
+      pendingTasks.insert(0, task.copyWith(isCompleted: false));
       completedTasks.removeWhere((d) => d.id == task.id);
     }
 
     emit(state.copyWith(
       pendingTasks: pendingTasks,
       completedTasks: completedTasks,
+    ));
+  }
+
+  void _toggleFavoriteTask(ToggleFavoriteTask event, Emitter<TaskState> emit) {
+    final state = this.state;
+    final task = event.task;
+
+    final pendingTasks = List<Task>.from(state.pendingTasks)
+        .map((d) =>
+            d.id == task.id ? task.copyWith(isFavorite: !task.isFavorite) : d)
+        .toList();
+    final favoriteTasks = List<Task>.from(state.favoriteTasks);
+
+    if (!task.isFavorite) {
+      favoriteTasks.insert(0, task.copyWith(isFavorite: true));
+    } else {
+      favoriteTasks.removeWhere((d) => d.id == task.id);
+    }
+
+    emit(state.copyWith(
+      pendingTasks: pendingTasks,
+      favoriteTasks: favoriteTasks,
     ));
   }
 
