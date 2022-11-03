@@ -98,12 +98,15 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
       ..removeWhere((d) => d.id == task.id);
     final completedTasks = List<Task>.from(state.completedTasks)
       ..removeWhere((d) => d.id == task.id);
+    final favoriteTasks = List<Task>.from(state.favoriteTasks)
+      ..removeWhere((d) => d.id == task.id);
     final archivedTasks = List<Task>.from(state.archivedTasks)
       ..add(task.copyWith(isArchived: true));
 
     emit(state.copyWith(
       pendingTasks: pendingTasks,
       completedTasks: completedTasks,
+      favoriteTasks: favoriteTasks,
       archivedTasks: archivedTasks,
     ));
   }
