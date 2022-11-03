@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import '../blocs/blocs.dart';
 import '../widgets/task_drawer.dart';
-import '../widgets/add_task_modal.dart';
+import '../widgets/task_modal.dart';
 import 'pending_screen.dart';
 import 'completed_screen.dart';
 import 'favorites_screen.dart';
@@ -15,7 +15,7 @@ class TabsScreen extends StatelessWidget {
   void _showAddTask(BuildContext ctx) => showModalBottomSheet(
         context: ctx,
         isScrollControlled: true,
-        builder: (ctx) => const AddTaskModal(),
+        builder: (ctx) => const TaskModal(),
       );
 
   void _onSwitchTab(BuildContext ctx, int idx) =>

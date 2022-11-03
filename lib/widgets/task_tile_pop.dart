@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../blocs/blocs.dart';
 import '../models/task.dart';
+import '../widgets/task_modal.dart';
 
 class TaskTilePopMenu extends StatelessWidget {
   const TaskTilePopMenu({
@@ -9,6 +10,26 @@ class TaskTilePopMenu extends StatelessWidget {
   });
 
   final Task task;
+
+  void _onSelected(BuildContext ctx, ActionType actionType) {
+    switch (actionType) {
+      case ActionType.edit:
+        _showEditTask(ctx);
+        break;
+      case ActionType.bookmark:
+        ctx.read<TaskBloc>().add(ToggleFavoriteTask(task: task));
+        break;
+      case ActionType.archive:
+        _onArchiveOrDelete(ctx);
+        break;
+      case ActionType.restore:
+        (() {})();
+        break;
+      case ActionType.delete:
+        _onArchiveOrDelete(ctx);
+        break;
+    }
+  }
 
   void _onArchiveOrDelete(BuildContext ctx) {
     final taskBloc = ctx.read<TaskBloc>();
@@ -20,13 +41,20 @@ class TaskTilePopMenu extends StatelessWidget {
     }
   }
 
+  void _showEditTask(BuildContext ctx) async => showModalBottomSheet(
+        context: ctx,
+        isScrollControlled: true,
+        builder: (ctx) => TaskModal(task: task),
+      );
+
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
+    return PopupMenuButton<ActionType>(
+      onSelected: (actionType) => _onSelected(context, actionType),
       itemBuilder: (ctx) => !task.isArchived
           ? [
               PopupMenuItem(
-                onTap: () {},
+                value: ActionType.edit,
                 child: TextButton.icon(
                   onPressed: null,
                   icon: const Icon(Icons.edit),
@@ -34,9 +62,7 @@ class TaskTilePopMenu extends StatelessWidget {
                 ),
               ),
               PopupMenuItem(
-                onTap: () => context
-                    .read<TaskBloc>()
-                    .add(ToggleFavoriteTask(task: task)),
+                value: ActionType.bookmark,
                 child: TextButton.icon(
                   onPressed: null,
                   icon: const Icon(Icons.bookmark_add),
@@ -45,7 +71,7 @@ class TaskTilePopMenu extends StatelessWidget {
                 ),
               ),
               PopupMenuItem(
-                onTap: () => _onArchiveOrDelete(context),
+                value: ActionType.archive,
                 child: TextButton.icon(
                   onPressed: null,
                   icon: const Icon(Icons.delete),
@@ -55,7 +81,7 @@ class TaskTilePopMenu extends StatelessWidget {
             ]
           : [
               PopupMenuItem(
-                onTap: () {},
+                value: ActionType.restore,
                 child: TextButton.icon(
                   onPressed: null,
                   icon: const Icon(Icons.restore),
@@ -63,7 +89,7 @@ class TaskTilePopMenu extends StatelessWidget {
                 ),
               ),
               PopupMenuItem(
-                onTap: () => _onArchiveOrDelete(context),
+                value: ActionType.delete,
                 child: TextButton.icon(
                   onPressed: null,
                   icon: const Icon(Icons.delete_forever),
@@ -74,3 +100,5 @@ class TaskTilePopMenu extends StatelessWidget {
     );
   }
 }
+
+enum ActionType { edit, bookmark, archive, restore, delete }

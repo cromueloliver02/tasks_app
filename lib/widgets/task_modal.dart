@@ -3,18 +3,23 @@ import 'package:uuid/uuid.dart';
 import '../blocs/blocs.dart';
 import '../models/task.dart';
 
-class AddTaskModal extends StatefulWidget {
-  const AddTaskModal({super.key});
+class TaskModal extends StatefulWidget {
+  const TaskModal({
+    super.key,
+    this.task,
+  });
+
+  final Task? task;
 
   @override
-  State<AddTaskModal> createState() => _AddTaskModalState();
+  State<TaskModal> createState() => _AddTaskModalState();
 }
 
-class _AddTaskModalState extends State<AddTaskModal> {
+class _AddTaskModalState extends State<TaskModal> {
   late final TextEditingController _titleController;
   late final TextEditingController _descController;
 
-  void _onAddTask() {
+  void _addTask() {
     if (_titleController.text.isEmpty || _descController.text.isEmpty) return;
 
     final task = Task(
@@ -25,6 +30,20 @@ class _AddTaskModalState extends State<AddTaskModal> {
     );
 
     context.read<TaskBloc>().add(AddTask(task: task));
+
+    _closeAddTaskModal();
+  }
+
+  void _updateTask() {
+    if (_titleController.text.isEmpty || _descController.text.isEmpty) return;
+
+    final newTask = widget.task!.copyWith(
+      title: _titleController.value.text,
+      description: _descController.value.text,
+      dateTime: DateTime.now(),
+    );
+
+    context.read<TaskBloc>().add(UpdateTask(task: newTask));
 
     _closeAddTaskModal();
   }
@@ -43,9 +62,9 @@ class _AddTaskModalState extends State<AddTaskModal> {
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                const Text(
-                  'Add Task',
-                  style: TextStyle(fontSize: 24),
+                Text(
+                  widget.task == null ? 'Add Task' : 'Edit Task',
+                  style: const TextStyle(fontSize: 24),
                 ),
                 const SizedBox(height: 10),
                 TextField(
@@ -75,8 +94,8 @@ class _AddTaskModalState extends State<AddTaskModal> {
                       child: const Text('Cancel'),
                     ),
                     ElevatedButton(
-                      onPressed: _onAddTask,
-                      child: const Text('Add'),
+                      onPressed: widget.task == null ? _addTask : _updateTask,
+                      child: Text(widget.task == null ? 'Add' : 'Update'),
                     ),
                   ],
                 ),
@@ -91,8 +110,8 @@ class _AddTaskModalState extends State<AddTaskModal> {
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController();
-    _descController = TextEditingController();
+    _titleController = TextEditingController(text: widget.task?.title);
+    _descController = TextEditingController(text: widget.task?.description);
   }
 
   @override

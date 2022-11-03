@@ -8,6 +8,7 @@ part 'task_state.dart';
 class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
   TaskBloc() : super(const TaskState()) {
     on<AddTask>(_addTask);
+    on<UpdateTask>(_updateTask);
     on<CompleteTask>(_toggleCompleteTask);
     on<ToggleFavoriteTask>(_toggleFavoriteTask);
     on<ArchiveTask>(_archiveTask);
@@ -20,6 +21,27 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
       ..insert(0, event.task);
 
     emit(state.copyWith(pendingTasks: pendingTasks));
+  }
+
+  void _updateTask(UpdateTask event, Emitter<TaskState> emit) {
+    final state = this.state;
+    final task = event.task;
+
+    final pendingTasks = List<Task>.from(state.pendingTasks)
+        .map((d) => d.id == task.id ? task : d)
+        .toList();
+    final completedTasks = List<Task>.from(state.completedTasks)
+        .map((d) => d.id == task.id ? task : d)
+        .toList();
+    final favoriteTasks = List<Task>.from(state.favoriteTasks)
+        .map((d) => d.id == task.id ? task : d)
+        .toList();
+
+    emit(state.copyWith(
+      pendingTasks: pendingTasks,
+      completedTasks: completedTasks,
+      favoriteTasks: favoriteTasks,
+    ));
   }
 
   void _toggleCompleteTask(CompleteTask event, Emitter<TaskState> emit) {

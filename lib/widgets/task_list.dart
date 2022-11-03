@@ -17,6 +17,7 @@ class TaskList extends StatelessWidget {
         children: tasks
             .map((d) => ExpansionPanelRadio(
                   value: d.id,
+                  canTapOnHeader: true,
                   headerBuilder: (ctx, isOpen) => TaskTile(task: d),
                   body: Padding(
                     padding: const EdgeInsets.only(bottom: 10),
