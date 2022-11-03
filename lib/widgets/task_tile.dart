@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../blocs/blocs.dart';
 import '../models/task.dart';
+import '../widgets/task_tile_pop.dart';
 
 class TaskTile extends StatelessWidget {
   const TaskTile({
@@ -10,19 +11,16 @@ class TaskTile extends StatelessWidget {
 
   final Task task;
 
-  void _onArchiveOrDelete(BuildContext ctx) {
-    final taskBloc = ctx.read<TaskBloc>();
-
-    if (!task.isArchived) {
-      taskBloc.add(ArchiveTask(task: task));
-    } else {
-      taskBloc.add(DeleteTask(task: task));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: !task.isArchived
+          ? Checkbox(
+              value: task.isDone,
+              onChanged: (value) =>
+                  context.read<TaskBloc>().add(CompleteTask(task: task)),
+            )
+          : null,
       title: Text(
         task.title,
         overflow: TextOverflow.ellipsis,
@@ -34,18 +32,14 @@ class TaskTile extends StatelessWidget {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (!task.isArchived)
-            Checkbox(
-              value: task.isDone,
-              onChanged: (value) =>
-                  context.read<TaskBloc>().add(CompleteTask(task: task)),
-            ),
           IconButton(
-            icon: const Icon(Icons.delete),
-            color: Colors.red,
-            iconSize: 30,
-            onPressed: () => _onArchiveOrDelete(context),
+            onPressed: () {},
+            icon: const Icon(
+              Icons.favorite_border,
+              color: Colors.red,
+            ),
           ),
+          TaskTilePopMenu(task: task),
         ],
       ),
     );
