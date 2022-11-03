@@ -69,3 +69,5 @@ class DeleteTask extends TaskEvent {
   @override
   List<Object> get props => [task];
 }
+
+class ClearArchive extends TaskEvent {}

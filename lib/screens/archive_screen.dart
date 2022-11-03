@@ -14,6 +14,16 @@ class ArchiveScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Archived Tasks'),
+        actions: [
+          PopupMenuButton(
+            itemBuilder: (ctx) => [
+              PopupMenuItem(
+                onTap: () => context.read<TaskBloc>().add(ClearArchive()),
+                child: const Text('Clear Archive'),
+              ),
+            ],
+          ),
+        ],
       ),
       drawer: const TaskDrawer(),
       body: Column(

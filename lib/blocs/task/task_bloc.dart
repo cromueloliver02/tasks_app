@@ -14,6 +14,7 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     on<ArchiveTask>(_archiveTask);
     on<RestoreTask>(_restoreTask);
     on<DeleteTask>(_deleteTask);
+    on<ClearArchive>(_clearArchive);
   }
 
   void _addTask(AddTask event, Emitter<TaskState> emit) {
@@ -134,6 +135,12 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
       ..removeWhere((d) => d.id == task.id);
 
     emit(state.copyWith(archivedTasks: archivedTasks));
+  }
+
+  void _clearArchive(ClearArchive event, Emitter<TaskState> emit) {
+    final state = this.state;
+
+    emit(state.copyWith(archivedTasks: []));
   }
 
   @override
