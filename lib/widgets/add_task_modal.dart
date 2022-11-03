@@ -21,6 +21,7 @@ class _AddTaskModalState extends State<AddTaskModal> {
       id: const Uuid().v1(),
       title: _titleController.value.text,
       description: _descController.value.text,
+      dateTime: DateTime.now(),
     );
 
     context.read<TaskBloc>().add(AddTask(task: task));

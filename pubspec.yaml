@@ -35,6 +35,7 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.1
   hydrated_bloc: ^8.1.0
+  intl: ^0.17.0
   path_provider: ^2.0.11
   tuple: ^2.0.1
   uuid: ^3.0.6

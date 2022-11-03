@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../blocs/blocs.dart';
 import '../models/task.dart';
 import '../widgets/task_tile_pop.dart';
@@ -13,6 +14,8 @@ class TaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final date = DateFormat.jm().add_yMMMd().format(task.dateTime);
+
     return ListTile(
       leading: !task.isArchived
           ? Checkbox(
@@ -29,6 +32,7 @@ class TaskTile extends StatelessWidget {
               task.isDone ? TextDecoration.lineThrough : TextDecoration.none,
         ),
       ),
+      subtitle: Text(date),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
