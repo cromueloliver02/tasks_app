@@ -12,13 +12,11 @@ class TabsScreen extends StatelessWidget {
 
   const TabsScreen({super.key});
 
-  void _showAddTask(BuildContext ctx) {
-    showModalBottomSheet(
-      context: ctx,
-      isScrollControlled: true,
-      builder: (ctx) => const AddTaskModal(),
-    );
-  }
+  void _showAddTask(BuildContext ctx) => showModalBottomSheet(
+        context: ctx,
+        isScrollControlled: true,
+        builder: (ctx) => const AddTaskModal(),
+      );
 
   void _onSwitchTab(BuildContext ctx, int idx) =>
       ctx.read<TabBloc>().add(SwitchTabEvent(index: idx));

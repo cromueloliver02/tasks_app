@@ -12,13 +12,15 @@ class AddTaskModal extends StatefulWidget {
 
 class _AddTaskModalState extends State<AddTaskModal> {
   late final TextEditingController _titleController;
+  late final TextEditingController _descController;
 
   void _onAddTask() {
-    if (_titleController.value.text.isEmpty) return;
+    if (_titleController.text.isEmpty || _descController.text.isEmpty) return;
 
     final task = Task(
       id: const Uuid().v1(),
       title: _titleController.value.text,
+      description: _descController.value.text,
     );
 
     context.read<TaskBloc>().add(AddTask(task: task));
@@ -54,6 +56,16 @@ class _AddTaskModalState extends State<AddTaskModal> {
                   ),
                 ),
                 const SizedBox(height: 10),
+                TextField(
+                  controller: _descController,
+                  minLines: 3,
+                  maxLines: 5,
+                  decoration: const InputDecoration(
+                    label: Text('Description'),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -79,11 +91,13 @@ class _AddTaskModalState extends State<AddTaskModal> {
   void initState() {
     super.initState();
     _titleController = TextEditingController();
+    _descController = TextEditingController();
   }
 
   @override
   void dispose() {
     _titleController.dispose();
+    _descController.dispose();
     super.dispose();
   }
 }
