@@ -50,6 +50,10 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
         .map((d) =>
             d.id == task.id ? task.copyWith(isFavorite: !task.isFavorite) : d)
         .toList();
+    final completedTasks = List<Task>.from(state.completedTasks)
+        .map((d) =>
+            d.id == task.id ? task.copyWith(isFavorite: !task.isFavorite) : d)
+        .toList();
     final favoriteTasks = List<Task>.from(state.favoriteTasks);
 
     if (!task.isFavorite) {
@@ -60,6 +64,7 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
 
     emit(state.copyWith(
       pendingTasks: pendingTasks,
+      completedTasks: completedTasks,
       favoriteTasks: favoriteTasks,
     ));
   }
