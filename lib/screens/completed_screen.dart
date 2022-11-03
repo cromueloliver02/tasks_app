@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tasks_app/blocs/blocs.dart';
+import 'package:tasks_app/models/task.dart';
+import 'package:tasks_app/widgets/task_list.dart';
 import '../screens/tabs_screen.dart';
 
 class CompletedScreen extends StatelessWidget {
@@ -8,8 +11,25 @@ class CompletedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('COMPLETED SCREEN'),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Center(
+          child: Chip(
+            label: BlocSelector<TaskBloc, TaskState, List<Task>>(
+              selector: (state) => state.completedTasks,
+              builder: (ctx, completedTasks) =>
+                  Text('Completed Tasks: ${completedTasks.length}'),
+            ),
+          ),
+        ),
+        Expanded(
+          child: BlocSelector<TaskBloc, TaskState, List<Task>>(
+            selector: (state) => state.completedTasks,
+            builder: (ctx, completedTasks) => TaskList(tasks: completedTasks),
+          ),
+        ),
+      ],
     );
   }
 }

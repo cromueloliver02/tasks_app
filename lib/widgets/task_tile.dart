@@ -37,7 +37,7 @@ class TaskTile extends StatelessWidget {
             Checkbox(
               value: task.isDone,
               onChanged: (value) =>
-                  context.read<TaskBloc>().add(UpdateTask(task: task)),
+                  context.read<TaskBloc>().add(CompleteTask(task: task)),
             ),
           IconButton(
             icon: const Icon(Icons.delete),

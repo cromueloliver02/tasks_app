@@ -30,8 +30,8 @@ class TaskDrawer extends StatelessWidget {
               leading: const Icon(Icons.folder_special_rounded),
               title: const Text('My Tasks'),
               trailing: BlocSelector<TaskBloc, TaskState, List<Task>>(
-                selector: (state) => state.tasks,
-                builder: (ctx, tasks) => Text('${tasks.length}'),
+                selector: (state) => state.pendingTasks,
+                builder: (ctx, pendingTasks) => Text('${pendingTasks.length}'),
               ),
               onTap: () => Navigator.pushReplacementNamed(
                 context,

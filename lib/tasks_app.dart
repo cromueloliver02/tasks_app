@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tasks_app/blocs/tab/tab_bloc.dart';
 import 'app_router.dart';
 import 'app_theme.dart';
 import '../blocs/blocs.dart';

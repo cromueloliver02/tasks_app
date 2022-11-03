@@ -17,15 +17,16 @@ class PendingScreen extends StatelessWidget {
         Center(
           child: Chip(
             label: BlocSelector<TaskBloc, TaskState, List<Task>>(
-              selector: (state) => state.tasks,
-              builder: (ctx, tasks) => Text('Tasks: ${tasks.length}'),
+              selector: (state) => state.pendingTasks,
+              builder: (ctx, pendingTasks) =>
+                  Text('Pending Tasks: ${pendingTasks.length}'),
             ),
           ),
         ),
         Expanded(
           child: BlocSelector<TaskBloc, TaskState, List<Task>>(
-            selector: (state) => state.tasks,
-            builder: (ctx, tasks) => TaskList(tasks: tasks),
+            selector: (state) => state.pendingTasks,
+            builder: (ctx, pendingTasks) => TaskList(tasks: pendingTasks),
           ),
         ),
       ],
