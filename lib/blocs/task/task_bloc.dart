@@ -12,6 +12,7 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     on<CompleteTask>(_toggleCompleteTask);
     on<ToggleFavoriteTask>(_toggleFavoriteTask);
     on<ArchiveTask>(_archiveTask);
+    on<RestoreTask>(_restoreTask);
     on<DeleteTask>(_deleteTask);
   }
 
@@ -107,6 +108,21 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
       pendingTasks: pendingTasks,
       completedTasks: completedTasks,
       favoriteTasks: favoriteTasks,
+      archivedTasks: archivedTasks,
+    ));
+  }
+
+  void _restoreTask(RestoreTask event, Emitter<TaskState> emit) {
+    final state = this.state;
+    final task = event.task;
+
+    final pendingTasks = List<Task>.from(state.pendingTasks)
+      ..insert(0, task.copyWith(isArchived: false));
+    final archivedTasks = List<Task>.from(state.archivedTasks)
+      ..removeWhere((d) => d.id == task.id);
+
+    emit(state.copyWith(
+      pendingTasks: pendingTasks,
       archivedTasks: archivedTasks,
     ));
   }

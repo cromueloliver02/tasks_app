@@ -23,7 +23,7 @@ class TaskTilePopMenu extends StatelessWidget {
         _onArchiveOrDelete(ctx);
         break;
       case ActionType.restore:
-        (() {})();
+        ctx.read<TaskBloc>().add(RestoreTask(task: task));
         break;
       case ActionType.delete:
         _onArchiveOrDelete(ctx);
@@ -41,7 +41,7 @@ class TaskTilePopMenu extends StatelessWidget {
     }
   }
 
-  void _showEditTask(BuildContext ctx) async => showModalBottomSheet(
+  void _showEditTask(BuildContext ctx) => showModalBottomSheet(
         context: ctx,
         isScrollControlled: true,
         builder: (ctx) => TaskModal(task: task),
